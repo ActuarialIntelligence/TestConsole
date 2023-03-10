@@ -22,16 +22,9 @@ namespace TestConsole
             // and traverse to the end of the length to test a relevant substring.
             for (int i = 0; i < length; i++)
             {
-                if(i==30)
-                    {
-
-                }
-
                 for(int j = i; j <= length; j++)
                 {
-                    //Console.WriteLine(i.ToString() + " "+ j.ToString());
                     tmpPallendromeStr = pallendromeNested.Substring(i, j-i);
-                    //Console.WriteLine(tmpPallendromeStr);
                     if (tmpPallendromeStr.Length >= 2)
                     {
                         if (IsPallendrome(tmpPallendromeStr))
