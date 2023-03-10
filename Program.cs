@@ -9,22 +9,30 @@ namespace TestConsole
         static void Main(string[] args)
         {
             //string within which to find longest pallendrome
-            string pallendromeNested = "";
+            string pallendromeNested = "anaannapaaaaaaaaaap";
+            var strCharArray = pallendromeNested.ToCharArray();
+            Array.Reverse(strCharArray);
+            var reversed = strCharArray.ToString();
 
+
+            string tmpPallendromeStr = "";
             var length = pallendromeNested.Length;
             var resultsKVPList = new List<KeyValuePair<int, string>>();
             // The substrings can start at each index value along the length
             // and traverse to the end of the length to test a relevant substring.
             for (int i = 0; i < length; i++)
             {
-                for(int j = i; j < length; j++)
+                for(int j = i; j <= length -i ; j++)
                 {
-                    pallendromeNested = pallendromeNested.Substring(i, j);
-                    if(IsPallendrome(pallendromeNested))
+                    tmpPallendromeStr = pallendromeNested.Substring(i, j);
+                    if (tmpPallendromeStr.Length >= 2)
                     {
+                        if (IsPallendrome(tmpPallendromeStr))
+                        {
                             resultsKVPList.
                                 Add(new KeyValuePair<int, string>
-                                (pallendromeNested.Length, pallendromeNested));
+                                (tmpPallendromeStr.Length, tmpPallendromeStr));
+                        }
                     }
                 }
             }
@@ -32,8 +40,7 @@ namespace TestConsole
             var largestPallendromeList = LargestPallendromesList(resultsKVPList);
             foreach (var largestPallendrome in largestPallendromeList)
             {
-                Console.WriteLine("Lagrest Pallendrome, length {0} : Pallendrome {1}"
-                    ,largestPallendrome.Key,largestPallendrome.Value);
+                Console.WriteLine("Lagrest Pallendrome" + " Length: " + largestPallendrome.Key.ToString() + " Value: " + largestPallendrome.Value.ToString());
             }
         }
 
@@ -55,14 +62,26 @@ namespace TestConsole
 
         private  static bool IsPallendrome(string str)
         {
-            var strCharArray = str.ToCharArray();
-            Array.Reverse(strCharArray);
-            var reversed = strCharArray.ToString();
-            if(str.Equals(reversed))
+            var strR = "";
+            string reversed = ReversedString(str, ref strR);
+            if (str.Equals(reversed))
             {
                 return true;
             }
             else { return false; }
+        }
+
+        private static string ReversedString(string str, ref string strR)
+        {
+            var strCharArray = str.ToCharArray();
+
+            var len = strCharArray.Length;
+            for (int i = len - 1; i >= 0; i--)
+            {
+                strR += strCharArray[i].ToString();
+            }
+            var reversed = strR.ToString();
+            return reversed;
         }
     }
 }
