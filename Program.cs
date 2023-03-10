@@ -9,7 +9,7 @@ namespace TestConsole
         static void Main(string[] args)
         {
             //string within which to find longest pallendrome
-            string pallendromeNested = "anaannapaaaaaaaaaap";
+            string pallendromeNested = "anaannapaaaaaaaaaappngtymmytgnp";
             var strCharArray = pallendromeNested.ToCharArray();
             Array.Reverse(strCharArray);
             var reversed = strCharArray.ToString();
@@ -22,9 +22,16 @@ namespace TestConsole
             // and traverse to the end of the length to test a relevant substring.
             for (int i = 0; i < length; i++)
             {
-                for(int j = i; j <= length -i ; j++)
+                if(i==30)
+                    {
+
+                }
+
+                for(int j = i; j <= length; j++)
                 {
-                    tmpPallendromeStr = pallendromeNested.Substring(i, j);
+                    //Console.WriteLine(i.ToString() + " "+ j.ToString());
+                    tmpPallendromeStr = pallendromeNested.Substring(i, j-i);
+                    //Console.WriteLine(tmpPallendromeStr);
                     if (tmpPallendromeStr.Length >= 2)
                     {
                         if (IsPallendrome(tmpPallendromeStr))
@@ -40,10 +47,17 @@ namespace TestConsole
             var largestPallendromeList = LargestPallendromesList(resultsKVPList);
             foreach (var largestPallendrome in largestPallendromeList)
             {
-                Console.WriteLine("Lagrest Pallendrome" + " Length: " + largestPallendrome.Key.ToString() + " Value: " + largestPallendrome.Value.ToString());
+                Console.WriteLine("Lagrest Pallendrome" + " Length: " 
+                    + largestPallendrome.Key.ToString() + " Value: " + largestPallendrome.Value.ToString());
             }
         }
-
+        /// <summary>
+        /// Add largest palindrome value/s to list
+        /// this is because thaere can be two or more of the 
+        /// same largest length
+        /// </summary>
+        /// <param name="pallendromeList">Largest palindrome/s added to this list</param>
+        /// <returns></returns>
         private  static List<KeyValuePair<int, string>> LargestPallendromesList
             (List<KeyValuePair<int,string>> pallendromeList)
         {
@@ -59,7 +73,11 @@ namespace TestConsole
             pallendromes = pallendromeList.Where(s=>s.Key == largestInt).ToList();
             return pallendromes;
         }
-
+        /// <summary>
+        /// Check to see if the string passed is a pallendrome
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         private  static bool IsPallendrome(string str)
         {
             var strR = "";
@@ -70,7 +88,15 @@ namespace TestConsole
             }
             else { return false; }
         }
-
+        /// <summary>
+        /// I could do this with a simple reverse string
+        /// However at previous posting i.e. MS they required me to be able
+        /// to do things from scratch as much as possible.
+        /// For this reason I have included this block
+        /// </summary>
+        /// <param name="str"> String to reverse </param>
+        /// <param name="strR">Reversed String </param>
+        /// <returns></returns>
         private static string ReversedString(string str, ref string strR)
         {
             var strCharArray = str.ToCharArray();
